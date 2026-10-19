@@ -17,10 +17,7 @@ export default function Gallery() {
   useEffect(() => {
     Fancybox.bind('[data-fancybox="warrior-gallery"]', {
       Hash: false,
-      Thumbs: {
-        autoStart: false,
-      },
-    });
+    } as any);
 
     return () => {
       Fancybox.destroy();

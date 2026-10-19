@@ -12,7 +12,7 @@ import { TATTOO_STYLES } from "@/data/site-data";
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full overflow-hidden bg-[#0A0A0A] pt-20 sm:py-28 lg:py-36 border-t border-white/5">
+    <section id="services" className="relative w-full overflow-hidden bg-black pt-0 sm:py-28 lg:py-36 ">
       <style jsx global>{`
         .swiper-services .swiper-slide {
           width: 310px;
@@ -29,11 +29,7 @@ export default function Services() {
             width: 560px;
           }
         }
-        .swiper-services .swiper-slide-shadow-left,
-        .swiper-services .swiper-slide-shadow-right {
-          background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.4)) !important;
-          border-radius: 0.5rem;
-        }
+        
       `}</style>
 
       <div className="container mx-auto px-3 sm:px-6 lg:px-10 mb-12 lg:mb-16">

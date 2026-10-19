@@ -18,7 +18,7 @@ export default function About() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1100);
-    camera.target = new THREE.Vector3(0, 0, 0);
+    const cameraTarget = new THREE.Vector3(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -103,11 +103,11 @@ export default function About() {
       phi = THREE.MathUtils.degToRad(90 - lat);
       theta = THREE.MathUtils.degToRad(lon);
 
-      camera.target.x = 500 * Math.sin(phi) * Math.cos(theta);
-      camera.target.y = 500 * Math.cos(phi);
-      camera.target.z = 500 * Math.sin(phi) * Math.sin(theta);
+      cameraTarget.x = 500 * Math.sin(phi) * Math.cos(theta);
+      cameraTarget.y = 500 * Math.cos(phi);
+      cameraTarget.z = 500 * Math.sin(phi) * Math.sin(theta);
 
-      camera.lookAt(camera.target);
+      camera.lookAt(cameraTarget);
       renderer.render(scene, camera);
     };
 
