@@ -5,7 +5,7 @@ import { SITE_CONFIG } from "@/data/site-data";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[70svh] md:min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20 md:pt-0">
+    <section className="relative min-h-[90svh] md:min-h-screen flex items-center justify-center overflow-hidden bg-black pt-20 md:pt-0">
       <div className="absolute inset-0 z-0">
         <Image
           src="img/warhero.png"
