@@ -164,7 +164,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-[#000000] border-t border-white/5 relative overflow-hidden">
+    <section id="about" className="py-10 md:py-32 bg-[#000000] border-t border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-3 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 md:mb-20">
           <div className="lg:col-span-6 flex flex-col justify-center">
