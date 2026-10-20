@@ -28,7 +28,7 @@ export default function FloatingDock() {
       id: "location",
       name: "Location",
       href: SITE_CONFIG.mapsUrl,
-      icon: <MapPin className="w-5 h-5 text-black" />,
+      icon: <MapPin className="w-5 h-5 text-white" />,
       bg: "bg-[#00BFEF]",
       border: "border-[#00BFEF]",
       glow: "shadow-[0_0_15px_rgba(0,191,239,0.5)]",
@@ -39,7 +39,7 @@ export default function FloatingDock() {
       id: "youtube",
       name: "YouTube",
       href: SITE_CONFIG.youtubeUrl,
-      icon: <FontAwesomeIcon icon={faYoutube} className="w-6 h-6 text-white" />,
+      icon: <FontAwesomeIcon icon={faYoutube} className="w-6 h-6 text-white text-[20px]" />,
       bg: "bg-[#FF0000]",
       border: "border-red-600",
       glow: "shadow-[0_0_15px_rgba(255,0,0,0.5)]",
@@ -52,7 +52,7 @@ export default function FloatingDock() {
       id: "call",
       name: "Call",
       href: `tel:${SITE_CONFIG.phone}`,
-      icon: <Phone className="w-5 h-5 text-black" />,
+      icon: <Phone className="w-5 h-5 text-blue-600" />,
       bg: "bg-white",
       border: "border-white",
       glow: "shadow-[0_0_15px_rgba(255,255,255,0.4)]",
@@ -62,7 +62,7 @@ export default function FloatingDock() {
       id: "instagram",
       name: "Instagram",
       href: SITE_CONFIG.instagramUrl,
-      icon: <FontAwesomeIcon icon={faInstagram} className="w-6 h-6 text-white" />,
+      icon: <FontAwesomeIcon icon={faInstagram} className="w-6 h-6 text-white text-[22px]" />,
       bg: "bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888]",
       border: "border-pink-500/60",
       glow: "shadow-[0_0_15px_rgba(220,39,67,0.5)]",
@@ -72,7 +72,7 @@ export default function FloatingDock() {
       id: "whatsapp",
       name: "WhatsApp",
       href: SITE_CONFIG.whatsappUrl,
-      icon: <FontAwesomeIcon icon={faWhatsapp} className="w-10 h-10 text-black" />,
+      icon: <FontAwesomeIcon icon={faWhatsapp} className="w-10 h-10 text-white text-[25px]" />,
       bg: "bg-[#00F078]",
       border: "border-[#00F078]",
       glow: "shadow-[0_0_15px_rgba(0,240,120,0.5)]",
@@ -110,7 +110,7 @@ export default function FloatingDock() {
               {act.name}
             </span>
             <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center ${act.bg} ${act.border} ${act.glow} border shadow-xl shrink-0`}
+              className={`sm:w-12 sm:h-12 h-10 w-10 rounded-md text-white  flex items-center justify-center ${act.bg} ${act.border} ${act.glow} border shadow-xl shrink-0`}
             >
               {act.icon}
             </div>
@@ -122,14 +122,14 @@ export default function FloatingDock() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Toggle contact menu"
-        className="relative w-14 h-14 rounded-full bg-[#00F078] border-2 border-white/30 text-black shadow-[0_0_25px_rgba(0,240,120,0.7)] flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+        className="relative h-11 w-11 sm:w-14 sm:h-14 rounded-md bg-[#00F078] border-2 border-white/30 text-black shadow-[0_0_25px_rgba(0,240,120,0.7)] flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
       >
         {isOpen ? (
-          <X className="w-7 h-7 text-black transition-transform duration-300" />
+          <X className="w-7 h-7 text-white transition-transform duration-300" />
         ) : (
           <>
-            <span className="absolute -inset-1 rounded-full bg-[#00F078]/40 animate-ping pointer-events-none" />
-           <FontAwesomeIcon icon={faWhatsapp}  className="text-black text-[28px]" />
+            <span className="absolute -inset-1 rounded-md bg-[#00F078]/40 animate-ping pointer-events-none" />
+           <FontAwesomeIcon icon={faWhatsapp}  className="text-white text-[28px]" />
           </>
         )}
       </button>

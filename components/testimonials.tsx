@@ -3,7 +3,7 @@ import { TESTIMONIALS_DATA } from "@/data/site-data";
 
 export default function Testimonials() {
   return (
-    <section className="py-24 md:py-36 bg-black border-t border-white/5 relative">
+    <section className="py-24 md:py-26 bg-black border-t border-white/5 relative">
       <div className="container mx-auto px-3 sm:px-6 lg:px-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>

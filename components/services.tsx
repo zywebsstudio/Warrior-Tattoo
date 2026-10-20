@@ -12,7 +12,7 @@ import { TATTOO_STYLES } from "@/data/site-data";
 
 export default function Services() {
   return (
-    <section id="services" className="relative w-full overflow-hidden bg-black pt-0 sm:py-28 lg:py-36 ">
+    <section id="services" className="relative w-full overflow-hidden bg-black pt-0 md:pt-18">
       <style jsx global>{`
         .swiper-services .swiper-slide {
           width: 310px;

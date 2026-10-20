@@ -14,7 +14,7 @@ import { ARTISTS_DATA } from "@/data/site-data";
 
 export default function Artists() {
   return (
-    <section id="artists" className="pt-20 sm:py-28 lg:py-36 bg-black border-t border-white/5 relative">
+    <section id="artists" className="pt-20 sm:pb-28  bg-black border-t border-white/5 relative">
       <style jsx global>{`
         .artists-swiper .swiper-pagination-bullet {
           background: rgba(255, 255, 255, 0.3);

@@ -37,7 +37,7 @@ export default function Gallery() {
       : GALLERY_ITEMS.filter((item) => item.category === activeFilter);
 
   return (
-    <section id="gallery" className="pt-20 sm:py-28 lg:py-36 bg-black border-t border-white/5 relative">
+    <section id="gallery" className="pt-20 sm:py-28  bg-black border-t border-white/5 relative">
       <div className="container mx-auto px-3 sm:px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12 sm:mb-16">
           <div>
