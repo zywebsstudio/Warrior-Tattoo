@@ -48,10 +48,10 @@ export default function Artists() {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto">
+        <div className=" mx-auto max-w-[1400px]">
           <Swiper
             modules={[Pagination, Autoplay]}
-            slidesPerView={1}
+            slidesPerView={1.2}
             loop={true}
             speed={700}
             autoplay={{
@@ -62,11 +62,11 @@ export default function Artists() {
             pagination={{
               clickable: true,
             }}
-            className="artists-swiper pb-14"
+            className="artists-swiper pb-14  "
           >
             {ARTISTS_DATA.map((artist, idx) => (
               <SwiperSlide key={idx}>
-                <div className="rounded-xl border border-white/10 bg-black p-6 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
+                <div className="rounded-xl border border-white/10 bg-black p-2 sm:p-6  shadow-2xl relative overflow-hidden]">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
                     <div className="md:col-span-5 relative">
                       <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden border border-white/15 bg-[#0A0A0A]">

@@ -32,6 +32,9 @@ export default function Hero() {
     renderer.setSize(width, height);
     mount.appendChild(renderer.domElement);
 
+    renderer.domElement.style.touchAction = "none";
+    mount.style.touchAction = "none";
+
     const geometry = new THREE.SphereGeometry(500, 60, 40);
     geometry.scale(-1, 1, 1);
 
@@ -45,45 +48,80 @@ export default function Hero() {
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    let isUserInteracting = false;
-    let onPointerDownPointerX = 0;
-    let onPointerDownPointerY = 0;
+    let isInteractingState = false;
+    let lastX = 0;
+    let lastY = 0;
+    let targetLon = 0;
+    let targetLat = 0;
     let lon = 0;
-    let onPointerDownLon = 0;
     let lat = 0;
-    let onPointerDownLat = 0;
-    let phi = 0;
-    let theta = 0;
     let reqId: number;
 
-    const onPointerDown = (event: PointerEvent) => {
-      isUserInteracting = true;
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      isInteractingState = true;
       setIsInteracting(true);
-      onPointerDownPointerX = event.clientX;
-      onPointerDownPointerY = event.clientY;
-      onPointerDownLon = lon;
-      onPointerDownLat = lat;
-      mount.setPointerCapture(event.pointerId);
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      if (!isUserInteracting) return;
-      lon = (onPointerDownPointerX - event.clientX) * 0.15 + onPointerDownLon;
-      lat = (event.clientY - onPointerDownPointerY) * 0.15 + onPointerDownLat;
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isInteractingState || e.touches.length !== 1) return;
+      if (e.cancelable) e.preventDefault();
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const deltaX = currentX - lastX;
+      const deltaY = currentY - lastY;
+      lastX = currentX;
+      lastY = currentY;
+
+      targetLon -= deltaX * 0.28;
+      targetLat += deltaY * 0.28;
+      targetLat = Math.max(-80, Math.min(80, targetLat));
     };
 
-    const onPointerUp = (event: PointerEvent) => {
-      isUserInteracting = false;
+    const onTouchEnd = () => {
+      isInteractingState = false;
       setIsInteracting(false);
-      try {
-        mount.releasePointerCapture(event.pointerId);
-      } catch {}
     };
 
-    mount.addEventListener("pointerdown", onPointerDown);
-    mount.addEventListener("pointermove", onPointerMove);
-    mount.addEventListener("pointerup", onPointerUp);
-    mount.addEventListener("pointercancel", onPointerUp);
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return;
+      isInteractingState = true;
+      setIsInteracting(true);
+      lastX = e.clientX;
+      lastY = e.clientY;
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isInteractingState) return;
+      const deltaX = e.clientX - lastX;
+      const deltaY = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      targetLon -= deltaX * 0.22;
+      targetLat += deltaY * 0.22;
+      targetLat = Math.max(-80, Math.min(80, targetLat));
+    };
+
+    const onMouseUp = () => {
+      isInteractingState = false;
+      setIsInteracting(false);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+
+    mount.addEventListener("touchstart", onTouchStart, { passive: true });
+    mount.addEventListener("touchmove", onTouchMove, { passive: false });
+    mount.addEventListener("touchend", onTouchEnd);
+    mount.addEventListener("touchcancel", onTouchEnd);
+    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchcancel", onTouchEnd);
+
+    mount.addEventListener("mousedown", onMouseDown);
 
     const handleResize = () => {
       if (!mount) return;
@@ -99,13 +137,15 @@ export default function Hero() {
     const animate = () => {
       reqId = requestAnimationFrame(animate);
 
-      if (!isUserInteracting) {
-        lon += 0.1;
+      if (!isInteractingState) {
+        targetLon += 0.08;
       }
 
-      lat = Math.max(-80, Math.min(80, lat));
-      phi = THREE.MathUtils.degToRad(90 - lat);
-      theta = THREE.MathUtils.degToRad(lon);
+      lon += (targetLon - lon) * 0.15;
+      lat += (targetLat - lat) * 0.15;
+
+      const phi = THREE.MathUtils.degToRad(90 - lat);
+      const theta = THREE.MathUtils.degToRad(lon);
 
       cameraTarget.x = 500 * Math.sin(phi) * Math.cos(theta);
       cameraTarget.y = 500 * Math.cos(phi);
@@ -120,11 +160,16 @@ export default function Hero() {
     return () => {
       cancelAnimationFrame(reqId);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
       if (mount) {
-        mount.removeEventListener("pointerdown", onPointerDown);
-        mount.removeEventListener("pointermove", onPointerMove);
-        mount.removeEventListener("pointerup", onPointerUp);
-        mount.removeEventListener("pointercancel", onPointerUp);
+        mount.removeEventListener("touchstart", onTouchStart);
+        mount.removeEventListener("touchmove", onTouchMove);
+        mount.removeEventListener("touchend", onTouchEnd);
+        mount.removeEventListener("touchcancel", onTouchEnd);
+        mount.removeEventListener("mousedown", onMouseDown);
         if (renderer.domElement && mount.contains(renderer.domElement)) {
           mount.removeChild(renderer.domElement);
         }
